@@ -1,0 +1,38 @@
+<view class="cu-bar bg-white search fixed" >
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="输入搜索的关键词" confirm-type="search" bindinput="search" maxlength="100" value="{{parentName}}"></input>
+  </view>
+  <view class="action">
+    <button class="cu-btn1 bg-gradual-green shadow-blur round" bindtap="searchbtn">搜索</button>
+  </view>
+</view>
+<scroll-view scroll-y class="indexes" scroll-into-view="indexes-{{listCurID}}" style="height:calc(100vh - {{CustomBar-10}}px)" scroll-with-animation="true" enable-back-to-top="true">
+  <block wx:for="{{leadlist}}" wx:key="index" style="position:relative;">
+    <view class="padding indexItem-{{leadlist[index]}}" id="indexes-{{leadlist[index]}}" data-index="{{leadlist[index]}}">{{leadlist[index]}}</view>
+    <view class="cu-list menu-avatar no-padding">
+      <view class="cu-item" wx:for="{{datalist}}" wx:key="index" wx:for-index="sub" wx:if="{{item.letter == leadlist[index]}}">
+        <view class="cu-avatar teachericon lg">
+                <image src="{{item.headPortrait}}" mode="aspectFill"></image> 
+        </view>
+        <view class="content" >
+          <view class="text-grey">
+            <text class="text-abc">{{item.parentsName}}</text></view>
+             <view class="text-gray text-sm">
+                {{item.parentsName}}<text style="padding-left:20px;">{{item.parentsContactWay}}</text>
+          </view>
+          <view class="font iconcontact callicon" bindtap="call" data-tel="{{item.parentsContactWay}}"></view>
+        </view>
+      </view>
+    </view>
+  </block>
+</scroll-view>
+<view class="indexBar" style="height:calc(100vh - {{CustomBar}}px - 50px)">
+  <view class="indexBar-box" bindtouchstart="tStart" bindtouchend="tEnd" catchtouchmove="tMove">
+    <view class="indexBar-item" wx:for="{{list}}" wx:key="index" id="{{index}}" bindtouchstart="getCur" bindtouchend="setCur">{{list[index]}}</view>
+  </view>
+</view>
+<!--选择显示-->
+<view hidden="{{hidden}}" class="indexToast">
+  {{listCur}}
+</view>
